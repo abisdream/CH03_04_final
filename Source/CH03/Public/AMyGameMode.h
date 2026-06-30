@@ -8,8 +8,13 @@
 
 
 
+
 #include "AMyGameMode.generated.h"
 
+
+class ACoin;
+class AHealthPotion;
+class ALandMine;
 
 UCLASS()
 class CH03_API AAMyGameMode : public AGameMode
@@ -24,6 +29,7 @@ public:
     void StartWave();
     void NextWave();
     void SpawnWaveItems();
+
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wave")
@@ -47,6 +53,24 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave")
     int32 MineCount = 2;
+
+    //½ºÆù
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
+    FVector SpawnMin;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
+    FVector SpawnMax;
+
+    UPROPERTY(EditAnywhere, Category = "Spawn")
+    TSubclassOf<ACoin> CoinClass;
+
+    UPROPERTY(EditAnywhere, Category = "Spawn")
+    TSubclassOf<AHealthPotion> PotionClass;
+
+    UPROPERTY(EditAnywhere, Category = "Spawn")
+    TSubclassOf<ALandMine> MineClass;
+
+    FVector GetRandomSpawnLocation() const;
 
 };
 
