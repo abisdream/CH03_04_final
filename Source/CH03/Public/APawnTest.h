@@ -29,6 +29,11 @@ public:
 	AAPawnTest();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void AddCoin(int32 Value);
+	void AddHealth(float Value);
+	//데미지와 죽음
+	void TakeDamage(float Damage);
+	void Die();
 
 protected:
 	// Called when the game starts or when spawned
@@ -91,5 +96,17 @@ protected:
 	float CurrentSpeed = 1400.f;
 
 	bool bBoost = false;
+
+	//아이템
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Player")
+	int32 Coin = 0;
+	//체력
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Stat")
+	float MaxHealth = 100.f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Player|Stat")
+	float Health = 100.f;
+
+	
 
 };

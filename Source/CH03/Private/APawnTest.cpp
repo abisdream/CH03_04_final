@@ -154,3 +154,38 @@ void AAPawnTest::BoostEnd(const FInputActionValue& Value)
 {
 	bBoost = false;
 }
+//코인
+void AAPawnTest::AddCoin(int32 Value)
+{
+	Coin += Value;
+
+	UE_LOG(LogTemp, Warning, TEXT("Coin : %d"), Coin);
+}
+//체력
+void AAPawnTest::AddHealth(float Value)
+{
+	Health += Value;
+
+	Health = FMath::Clamp(Health, 0.f, MaxHealth);
+
+	UE_LOG(LogTemp, Warning, TEXT("Health : %.1f"), Health);
+}
+//데미지
+void AAPawnTest::TakeDamage(float Damage)
+{
+	Health -= Damage;
+
+	Health = FMath::Clamp(Health, 0.f, MaxHealth);
+
+	UE_LOG(LogTemp, Warning, TEXT("Health : %.1f"), Health);
+
+	if (Health <= 0.f)
+	{
+		Die();
+	}
+}
+//죽음
+void AAPawnTest::Die()
+{
+	UE_LOG(LogTemp, Error, TEXT("플레이어 죽음!"));
+}
