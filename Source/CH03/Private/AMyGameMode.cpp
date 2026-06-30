@@ -11,3 +11,49 @@ AAMyGameMode::AAMyGameMode()
     DefaultPawnClass = AAPawnTest::StaticClass();
     PlayerControllerClass = ATestPlayerController::StaticClass();
 }
+
+void AAMyGameMode::BeginPlay()
+{
+    Super::BeginPlay();
+
+    StartWave();
+}
+
+void AAMyGameMode::StartWave()
+{
+    switch (CurrentWave)
+    {
+    case 1:
+        RemainingTime = 30.f;
+        break;
+
+    case 2:
+        RemainingTime = 10.f;
+        break;
+
+    case 3:
+        RemainingTime = 5.f;
+        break;
+
+    default:
+        UE_LOG(LogTemp, Warning, TEXT("Level Clear!"));
+        return;
+    }
+
+    UE_LOG(LogTemp, Warning, TEXT("Wave %d Ω√¿€!"), CurrentWave);
+
+    GetWorldTimerManager().SetTimer(
+        WaveTimerHandle,
+        this,
+        &AAMyGameMode::NextWave,
+        RemainingTime,
+        false
+    );
+}
+
+void AAMyGameMode::NextWave()
+{
+    CurrentWave++;
+
+    StartWave();
+}
